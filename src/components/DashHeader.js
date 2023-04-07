@@ -44,14 +44,14 @@ export default function DashHeader() {
 							</div>
 							<div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
 								<div className='flex flex-shrink-0 items-center'>
-									<Link to='/'>
+									<Link to='/dash'>
 										<img
 											className='block h-8 w-auto lg:hidden'
 											src={Logo}
 											alt='Help Desk'
 										/>
 									</Link>
-									<Link to='/'>
+									<Link to='/dash'>
 										<img
 											className='hidden h-8 w-auto lg:block'
 											src={Logo}
@@ -176,9 +176,8 @@ export default function DashHeader() {
 					<Disclosure.Panel className='sm:hidden'>
 						<div className='space-y-1 px-2 pb-3 pt-2'>
 							{navigation.map((item) => (
-								<Disclosure.Button
+								<Link
 									key={item.name}
-									as='a'
 									to={item.to}
 									className={classNames(
 										item.current
@@ -191,7 +190,7 @@ export default function DashHeader() {
 									}
 								>
 									{item.name}
-								</Disclosure.Button>
+								</Link>
 							))}
 						</div>
 					</Disclosure.Panel>
