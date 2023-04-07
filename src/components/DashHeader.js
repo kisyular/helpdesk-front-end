@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom'
 
 const navigation = [
 	{ name: 'Dashboard', to: '/dash', current: true },
-	{ name: 'Team', to: '#', current: false },
-	{ name: 'Projects', to: '#', current: false },
-	{ name: 'Calendar', to: '#', current: false },
-	{ name: 'Reports', to: '#', current: false },
+	{ name: 'Users', to: 'users', current: false },
+	{ name: 'Notes', to: 'notes', current: false },
+	// { name: 'Calendar', to: '#', current: false },
+	// { name: 'Reports', to: '#', current: false },
 ]
 
 function classNames(...classes) {
