@@ -154,7 +154,7 @@ export default function DashHeader() {
 											<Menu.Item>
 												{({ active }) => (
 													<Link
-														to='#'
+														to='/'
 														className={classNames(
 															active
 																? 'bg-gray-100'

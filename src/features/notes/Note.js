@@ -26,9 +26,7 @@ const Note = ({ noteId }) => {
 							alt={note.username}
 						/>
 						<div className='items-start'>
-							<p className='text-gray-700 text-xs'>
-								this not is assigned
-							</p>
+							<p className='text-gray-700 text-xs'>Assigned to</p>
 							<Link
 								className='text-sm font-semibold text-blue-700 mb-0'
 								to={`/dash/users/${note.user}`}
