@@ -2,7 +2,7 @@ import React from 'react'
 import Notes from '../components/Notes'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
-import notes from '../data/notes'
+import notes from '../config/notes'
 
 const Landing = () => {
 	return (

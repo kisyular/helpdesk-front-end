@@ -16,7 +16,7 @@ const Note = ({ noteId }) => {
 	}
 
 	return (
-		<div className='bg-white shadow-lg rounded-lg'>
+		<div className='bg-white dark:bg-neutral-700 shadow-lg rounded-lg'>
 			<div className='flex flex-col items-start px-4 py-2'>
 				<div className='mt-4 flex items-center justify-between w-full'>
 					<div className='flex'>
@@ -26,14 +26,14 @@ const Note = ({ noteId }) => {
 							alt={note.username}
 						/>
 						<div className='items-start'>
-							<p className='text-gray-700 text-xs'>Assigned to</p>
+							<p className='text-white text-xs'>Assigned to</p>
 							<Link
-								className='text-sm font-semibold text-blue-700 mb-0'
+								className='text-sm font-semibold text-blue-300 mb-0'
 								to={`/dash/users/${note.user}`}
 							>
 								@{note.username}
 							</Link>
-							<p className='text-gray-700 text-xs'>
+							<p className='text-white text-xs'>
 								on{' '}
 								{momemt(note.createdAt).format('MMMM Do YYYY')}
 							</p>
@@ -55,19 +55,21 @@ const Note = ({ noteId }) => {
 				</div>
 
 				<div className='mt-2'>
-					<h2 className='font-bold text-black '>{note.title}</h2>
-					<p className='mt-1 text-gray-800 text-sm'>{note.text}</p>
+					<h2 className='font-bold text-white text-xl '>
+						{note.title}
+					</h2>
+					<p className='mt-1 text-gray-300 text-sm'>{note.text}</p>
 					<div className='mt-4 flex items-end justify-between'>
 						<div className='flex flex-col justify-between mt-1 mb-1'>
-							<small className='text-xs text-purple-700'>
+							<small className='text-xs text-white'>
 								created {momemt(note.createdAt).fromNow()}
 							</small>
-							<small className='text-xs text-gray-700'>
+							<small className='text-xs  text-purple-300'>
 								updated {momemt(note.updatedAt).fromNow()}
 							</small>
 						</div>
 						<Link
-							className='flex mr-2 text-blue-700 text-sm lg:mr-4'
+							className='flex mr-2 text-blue-300 text-sm lg:mr-4'
 							to={`/dash/notes/${noteId}`}
 							onClick={handleEditNote}
 						>
@@ -84,7 +86,7 @@ const Note = ({ noteId }) => {
 									d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12'
 								/>
 							</svg>
-							<span className='text-blue-700'>View Post</span>
+							<span className='text-blue-300'>View Post</span>
 						</Link>
 					</div>
 				</div>

@@ -22,30 +22,33 @@ const User = ({ userId }) => {
 			<div className='border-b-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 text-xl font-bold'>
 				{userRolesString}
 			</div>
-			<div className='flex flex-col items-center pb-10 pt-4'>
+			<div className='flex flex-row items-center pt-2 px-2'>
 				<img
-					className='w-24 h-24 mb-3 rounded-full bg-black border-4 border-white dark:border-white'
+					className='w-20 h-20 mb-3 rounded-full bg-black border-4 border-white dark:border-white'
 					src={`https://robohash.org/${user.username}.png`}
 					alt={user.name}
 				/>
-				<h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-					{user.name}
-				</h5>
-				<span className='text-sm text-gray-500 dark:text-gray-400'>
-					{user.username}
-				</span>
-				<div className='flex mt-4 space-x-3 md:mt-6'>
-					<p
-						className={`inline-flex text-md items-center px-3 py-1 text-center text-white font-bold rounded-lg ${
-							user.active ? 'bg-green-500' : 'bg-red-300'
-						}`}
-					>
-						{userActiveString}
+				<div className='flex flex-col items-start ml-4'>
+					<p className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
+						{user.name}
 					</p>
+					<Link
+						to={userId}
+						className='text-sm text-blue-500 dark:text-blue-300'
+					>
+						@{user.username}
+					</Link>
 				</div>
 			</div>
 
-			<div className='border-t-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50'>
+			<div className='border-t-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 flex justify-between'>
+				<p
+					className={`inline-flex text-md items-center px-3 py-1 text-center text-white font-bold rounded-lg ${
+						user.active ? 'bg-green-500' : 'bg-red-300'
+					}`}
+				>
+					{userActiveString}
+				</p>
 				<Link
 					onClick={handleEditUser}
 					to={`${userId}`}
