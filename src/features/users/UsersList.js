@@ -1,9 +1,11 @@
 import React from 'react'
 import { useGetUsersQuery } from './usersApiSlice'
 import User from './User'
+import Button from '../../components/Button'
 
 // Statuses: idle, loading, failed, succeeded
 import { Loading, Error } from '../../components/Status'
+import { Link } from 'react-router-dom'
 
 const UsersList = () => {
 	const {
@@ -12,7 +14,12 @@ const UsersList = () => {
 		isLoading,
 		isError,
 		isSuccess,
-	} = useGetUsersQuery()
+	} = useGetUsersQuery(undefined, {
+		refetchOnMountOrArgChange: true,
+		pullToRefresh: true,
+		pullingInterval: 60000,
+		refetchOnFocus: true,
+	})
 
 	let content
 
@@ -28,8 +35,13 @@ const UsersList = () => {
 		)
 
 		content = (
-			<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-6xl py-4 sm:py-8 lg:py-12 justify-items-stretch px-2'>
-				{userContent}
+			<div className='justify-center flex items-center flex-col mt-10'>
+				<Link to='/dash/users/new'>
+					<Button text='Add New User' />
+				</Link>
+				<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-6xl py-4 sm:py-8 lg:py-12 justify-items-stretch px-2'>
+					{userContent}
+				</div>
 			</div>
 		)
 	}

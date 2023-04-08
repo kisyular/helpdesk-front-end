@@ -8,8 +8,8 @@ const navigation = [
 	{ name: 'Dashboard', to: '/dash', current: true },
 	{ name: 'Users', to: 'users', current: false },
 	{ name: 'Notes', to: 'notes', current: false },
-	// { name: 'Calendar', to: '#', current: false },
-	// { name: 'Reports', to: '#', current: false },
+	{ name: 'Add New User', to: 'users/new', current: false },
+	{ name: 'Add New Note', to: 'notes/new', current: false },
 ]
 
 function classNames(...classes) {

@@ -7,6 +7,6 @@ import { Loading } from '../../components/Status'
 const EditUser = () => {
 	const { id } = useParams()
 	const user = useSelector((state) => selectUserById(state, id))
-	return <EditUserForm user={user} />
+	return <>{user ? <EditUserForm user={user} /> : <Loading />}</>
 }
 export default EditUser

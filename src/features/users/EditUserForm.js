@@ -3,6 +3,9 @@ import { useUpdateUserMutation, useDeleteUserMutation } from './usersApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { ROLES } from '../../config/roles'
 import { Error } from '../../components/Status'
+import UserFormName from './UserFormName'
+import UserFormPassword from './UserFormPassword'
+import FormSelect from '../../components/FormSelect'
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
@@ -80,7 +83,11 @@ const EditUserForm = ({ user }) => {
 
 	const options = Object.values(ROLES).map((role) => {
 		return (
-			<option key={role} value={role} className='h-8 w-full'>
+			<option
+				key={role}
+				value={role}
+				className='h-8 w-full my-2 text-lg font-bold'
+			>
 				{role}
 			</option>
 		)
@@ -107,92 +114,28 @@ const EditUserForm = ({ user }) => {
 				className='w-full max-w-2xl'
 				onSubmit={(e) => e.preventDefault()}
 			>
-				<div className='flex flex-wrap mb-6'>
-					<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-						<label
-							className='block uppercase tracking-wide text-white text-md font-bold mb-2'
-							htmlFor='name'
-						>
-							Full Name
-						</label>
-						<input
-							className='appearance-none block w-full bg-gray-200 text-gray-900 border border-gray-200rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
-							id='name'
-							type='text'
-							placeholder='Jane Doe'
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-						/>
-					</div>
-					<div className='w-full md:w-1/2 px-3'>
-						<label
-							className='block uppercase tracking-wide text-white text-md font-bold mb-2'
-							htmlFor='username'
-						>
-							Username
-						</label>
-						<input
-							className='appearance-none block w-full mb-1 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-							id='username'
-							type='text'
-							placeholder='janedoe'
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
-						/>
-						{!validUsername && (
-							<p className='text-red-600 text-xs italic'>
-								Username must be 3-20 characters long and should
-								NOT contain special characters, spaces or
-								numbers.
-							</p>
-						)}
-					</div>
-				</div>
-				<div className='flex flex-wrap mb-6'>
-					<div className='w-full px-3'>
-						<label
-							className='block uppercase tracking-wide text-white text-md font-bold mb-2'
-							htmlFor='grid-password'
-						>
-							Password
-						</label>
-						<input
-							className='appearance-none block text-gray-900 w-full bg-gray-200 text-gray-700border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-							id='grid-password'
-							type='password'
-							placeholder='******************'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-						{!validPassword && (
-							<p className='text-red-600 text-xs italic'>
-								Password must be a minimum 4 characters long and
-								should NOT contain spaces.
-							</p>
-						)}
-					</div>
-				</div>
+				<UserFormName
+					name={name}
+					setName={setName}
+					username={username}
+					setUsername={setUsername}
+					validUsername={validUsername}
+				/>
+
+				<UserFormPassword
+					password={password}
+					setPassword={setPassword}
+					validPassword={validPassword}
+				/>
 
 				<div className='flex flex-wrap mb-6 items-center space-x-5'>
 					<div className='w-3/4 px-3 mb-6 md:mb-0'>
-						<label
-							className='block uppercase tracking-wide text-white text-md font-bold mb-2'
-							htmlFor='grid-state'
-						>
-							Select User Role
-						</label>
-						<div className='relative'>
-							<select
-								className=' block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-								id='grid-state'
-								multiple
-								size={2}
-								value={roles}
-								onChange={onRolesChanged}
-							>
-								{options}
-							</select>
-						</div>
+						<FormSelect
+							label='roles'
+							options={options}
+							onRolesChanged={onRolesChanged}
+							value={roles}
+						/>
 					</div>
 
 					<div className='px-3 mb-6 md:mb-0'>
@@ -223,7 +166,7 @@ const EditUserForm = ({ user }) => {
 							disabled={!canSave}
 							onClick={onSaveUserClicked}
 						>
-							Edit User
+							Save User
 						</button>
 
 						<button

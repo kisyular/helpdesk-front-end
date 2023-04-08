@@ -54,12 +54,12 @@ const Note = ({ noteId }) => {
 					)}
 				</div>
 
-				<div className='mt-2'>
+				<div className='mt-2 w-full'>
 					<h2 className='font-bold text-white text-xl'>
 						{note.title}
 					</h2>
 					<p className='mt-1 text-gray-300 text-sm'>{note.text}</p>
-					<div className='mt-4 flex items-end justify-between'>
+					<div className='mt-4 flex items-center justify-between w-full'>
 						<div className='flex flex-col justify-between mt-1 mb-1'>
 							<small className='text-xs text-white'>
 								created {momemt(note.createdAt).fromNow()}
@@ -86,7 +86,7 @@ const Note = ({ noteId }) => {
 									d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12'
 								/>
 							</svg>
-							<span className='text-blue-300'>View Post</span>
+							<span className='text-blue-300'>View Note</span>
 						</Link>
 					</div>
 				</div>

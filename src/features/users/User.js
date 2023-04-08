@@ -18,7 +18,11 @@ const User = ({ userId }) => {
 	const userActiveString = user.active ? 'Active' : 'Inactive'
 
 	return (
-		<div className='block rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700'>
+		<div
+			className={`block rounded-lg bg-white text-center shadow-lg  ${
+				user.active ? 'dark:bg-neutral-800' : 'bg-gray-500'
+			}`}
+		>
 			<div className='border-b-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 text-xl font-bold'>
 				{userRolesString}
 			</div>
@@ -44,7 +48,7 @@ const User = ({ userId }) => {
 			<div className='border-t-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 flex justify-between'>
 				<p
 					className={`text-md text-center font-bold rounded-lg ${
-						user.active ? 'text-green-500' : 'text-red-300'
+						user.active ? 'text-green-500' : 'text-red-400'
 					}`}
 				>
 					{userActiveString}
