@@ -69,6 +69,7 @@ const Note = ({ noteId }) => {
 						<Link
 							className='flex mr-2 text-blue-700 text-sm lg:mr-4'
 							to={`/dash/notes/${noteId}`}
+							onClick={handleEditNote}
 						>
 							<svg
 								fill='none'
