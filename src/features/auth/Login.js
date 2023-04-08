@@ -1,18 +1,57 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useRef, useState, useEffect } from 'react'
 import Logo from '../../images/favicon.png'
 import Button from '../../components/Button'
+import { Loading } from '../../components/Status'
+import { useNavigate, Link } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux'
+import { setCredentials } from './authSlice'
+import { useLoginMutation } from './authApiSlice'
 
 const Login = () => {
-	const [email, setEmail] = useState('')
+	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
-	// const [error, setError] = useState('')
-	// const [checked, setChecked] = useState(false)
 
-	const handleSubmit = (e) => {
+	const userRef = useRef()
+	const errRef = useRef()
+	const [errMsg, setErrMsg] = useState('')
+
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
+
+	const [login, { isLoading }] = useLoginMutation()
+
+	useEffect(() => {
+		userRef.current.focus()
+	}, [])
+
+	useEffect(() => {
+		setErrMsg('')
+	}, [username, password])
+
+	const handleSubmit = async (e) => {
 		e.preventDefault()
-		console.log(email, password)
+		try {
+			const { accessToken } = await login({ username, password }).unwrap()
+			dispatch(setCredentials({ accessToken }))
+			setUsername('')
+			setPassword('')
+			navigate('/dash')
+		} catch (err) {
+			if (!err.status) {
+				setErrMsg('No Server Response')
+			} else if (err.status === 400) {
+				setErrMsg('Missing Username or Password')
+			} else if (err.status === 401) {
+				setErrMsg('You entered an invalid username or password')
+			} else {
+				setErrMsg(err.data?.message)
+			}
+			errRef.current.focus()
+		}
 	}
+
+	if (isLoading) return <Loading />
 
 	return (
 		<section className='bg-black dark:bg-black landing'>
@@ -36,26 +75,41 @@ const Login = () => {
 						<h1 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
 							Sign in to your account
 						</h1>
+
+						{errMsg && (
+							<div
+								ref={errRef}
+								className='bg-red-100 border-l-4 border-r-4 border-red-500 text-red-700 p-4 rounded-lg'
+								role='alert'
+							>
+								<p className='font-bold'>Invalid Credentials</p>
+								<p>{errMsg}</p>
+							</div>
+						)}
+
 						<form
 							className='space-y-4 md:space-y-6'
 							onSubmit={handleSubmit}
 						>
 							<div>
 								<label
-									htmlFor='email'
+									htmlFor='username'
 									className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 								>
-									Your email
+									Your Username
 								</label>
 								<input
-									type='email'
-									name='email'
-									id='email'
+									type='text'
+									ref={userRef}
+									name='username'
+									id='username'
 									className='bg-gray-50 border border-white text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-									placeholder='name@company.com'
+									placeholder='username'
 									required=''
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
+									value={username}
+									onChange={(e) =>
+										setUsername(e.target.value)
+									}
 								/>
 							</div>
 							<div>
@@ -114,7 +168,7 @@ const Login = () => {
 								isFull={true}
 								onClick={handleSubmit}
 							/>
-							<p className='text-sm font-light text-gray-500 dark:text-gray-400'>
+							{/* <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
 								Don’t have an account yet?{' '}
 								<Link
 									to='/register'
@@ -122,7 +176,7 @@ const Login = () => {
 								>
 									Sign up
 								</Link>
-							</p>
+							</p> */}
 						</form>
 					</div>
 				</div>

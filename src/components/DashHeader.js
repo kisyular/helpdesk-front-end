@@ -2,8 +2,16 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from '../images/favicon.png'
-import { Link } from 'react-router-dom'
+import { Loading, Error } from './Status'
 
+import { useEffect } from 'react'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
+
+import { useSendLogoutMutation } from '../features/auth/authApiSlice'
+
+const DASH_REGEX = /^\/dash(\/)?$/
+const NOTES_REGEX = /^\/dash\/notes(\/)?$/
+const USERS_REGEX = /^\/dash\/users(\/)?$/
 const navigation = [
 	{ name: 'Dashboard', to: '/dash', current: true },
 	{ name: 'Users', to: 'users', current: false },
@@ -17,6 +25,28 @@ function classNames(...classes) {
 }
 
 export default function DashHeader() {
+	const navigate = useNavigate()
+	const { pathname } = useLocation()
+
+	const [sendLogout, { isLoading, isSuccess, isError, error }] =
+		useSendLogoutMutation()
+
+	useEffect(() => {
+		if (isSuccess) navigate('/')
+	}, [isSuccess, navigate])
+
+	if (isLoading) return <Loading />
+
+	if (isError) return <Error error={error.data?.message} />
+
+	let dashClass = null
+	if (
+		!DASH_REGEX.test(pathname) &&
+		!NOTES_REGEX.test(pathname) &&
+		!USERS_REGEX.test(pathname)
+	) {
+		dashClass = 'dash-header__container--small'
+	}
 	return (
 		<Disclosure as='nav' className='bg-black'>
 			{({ open }) => (
@@ -153,8 +183,8 @@ export default function DashHeader() {
 											</Menu.Item>
 											<Menu.Item>
 												{({ active }) => (
-													<Link
-														to='/'
+													<button
+														onClick={sendLogout}
 														className={classNames(
 															active
 																? 'bg-gray-100'
@@ -163,7 +193,7 @@ export default function DashHeader() {
 														)}
 													>
 														Sign out
-													</Link>
+													</button>
 												)}
 											</Menu.Item>
 										</Menu.Items>
