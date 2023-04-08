@@ -14,11 +14,11 @@ const NotesList = () => {
 		isLoading,
 		isError,
 		isSuccess,
-	} = useGetNotesQuery(undefined, {
-		refetchOnMountOrArgChange: true,
-		pullToRefresh: true,
-		pullingInterval: 15000,
+	} = useGetNotesQuery('notesList', {
+		pollingInterval: 15000,
 		refetchOnFocus: true,
+		refetchOnMountOrArgChange: true,
+		refetchOnReconnect: true,
 	})
 
 	let content

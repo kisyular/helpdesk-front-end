@@ -47,6 +47,7 @@ export default function DashHeader() {
 	) {
 		dashClass = 'dash-header__container--small'
 	}
+	console.log(dashClass)
 	return (
 		<Disclosure as='nav' className='bg-black'>
 			{({ open }) => (

@@ -14,11 +14,10 @@ const UsersList = () => {
 		isLoading,
 		isError,
 		isSuccess,
-	} = useGetUsersQuery(undefined, {
-		refetchOnMountOrArgChange: true,
-		pullToRefresh: true,
-		pullingInterval: 60000,
+	} = useGetUsersQuery('usersList', {
+		pollingInterval: 60000,
 		refetchOnFocus: true,
+		refetchOnMountOrArgChange: true,
 	})
 
 	let content
