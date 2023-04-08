@@ -55,7 +55,7 @@ const Note = ({ noteId }) => {
 				</div>
 
 				<div className='mt-2'>
-					<h2 className='font-bold text-white text-xl '>
+					<h2 className='font-bold text-white text-xl'>
 						{note.title}
 					</h2>
 					<p className='mt-1 text-gray-300 text-sm'>{note.text}</p>

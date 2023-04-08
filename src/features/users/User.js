@@ -43,8 +43,8 @@ const User = ({ userId }) => {
 
 			<div className='border-t-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 flex justify-between'>
 				<p
-					className={`inline-flex text-md items-center px-3 py-1 text-center text-white font-bold rounded-lg ${
-						user.active ? 'bg-green-500' : 'bg-red-300'
+					className={`text-md text-center font-bold rounded-lg ${
+						user.active ? 'text-green-500' : 'text-red-300'
 					}`}
 				>
 					{userActiveString}
@@ -52,7 +52,7 @@ const User = ({ userId }) => {
 				<Link
 					onClick={handleEditUser}
 					to={`${userId}`}
-					className='inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-white border border-blue-300 rounded-lg hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-800 dark:text-white dark:border-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:focus:ring-blue-700'
+					className='text-md text-center font-bold rounded-lg text-blue-300 '
 				>
 					Edit User
 				</Link>
