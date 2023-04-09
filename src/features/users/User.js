@@ -1,14 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectUserById } from './usersApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import { useGetUsersQuery } from './usersApiSlice'
+import { memo } from 'react'
 
 const User = ({ userId }) => {
-	const navigate = useNavigate()
-	const user = useSelector((state) => selectUserById(state, userId))
+	const { user } = useGetUsersQuery('usersList', {
+		selectFromResult: ({ data }) => ({
+			user: data?.entities[userId],
+		}),
+	})
 
+	const navigate = useNavigate()
 	if (!user) return null
 
 	const handleEditUser = () => {
@@ -81,4 +84,6 @@ const User = ({ userId }) => {
 	)
 }
 
-export default User
+const memoizedUser = memo(User)
+
+export default memoizedUser

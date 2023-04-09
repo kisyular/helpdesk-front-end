@@ -1,14 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectNoteById } from './notesApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import momemt from 'moment'
+import { useGetNotesQuery } from './notesApiSlice'
+import { memo } from 'react'
 
 const Note = ({ noteId }) => {
-	const navigate = useNavigate()
-	const note = useSelector((state) => selectNoteById(state, noteId))
+	const { note } = useGetNotesQuery('notesList', {
+		selectFromResult: ({ data }) => ({
+			note: data?.entities[noteId],
+		}),
+	})
 
+	const navigate = useNavigate()
 	if (!note) return null
 
 	const handleEditNote = () => {
@@ -114,4 +117,6 @@ const Note = ({ noteId }) => {
 	)
 }
 
-export default Note
+const memoizedNote = memo(Note)
+
+export default memoizedNote
