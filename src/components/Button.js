@@ -4,7 +4,7 @@ const Button = ({ text, type, isFull, backgroundColor }) => {
 	return (
 		<button
 			type={type}
-			className={`text-black  font-bold py-3 px-6 rounded-lg ${
+			className={`text-black  font-bold py-3 px-6 rounded-lg capitalize ${
 				isFull ? 'w-full' : ''
 			} ${
 				backgroundColor
