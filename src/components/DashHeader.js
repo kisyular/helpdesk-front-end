@@ -14,10 +14,6 @@ import useAuth from '../hooks/useAuth'
 
 import { useSendLogoutMutation } from '../features/auth/authApiSlice'
 
-// const DASH_REGEX = /^\/dash(\/)?$/
-// const NOTES_REGEX = /^\/dash\/notes(\/)?$/
-// const USERS_REGEX = /^\/dash\/users(\/)?$/
-
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ')
 }
@@ -26,7 +22,7 @@ export default function DashHeader() {
 	const navigate = useNavigate()
 	// const { pathname } = useLocation()
 
-	const { username, status, name, isAdmin, isManager } = useAuth()
+	const { username, status, name } = useAuth()
 	const navigation = [
 		{ name: 'Dashboard', to: '/dash', current: true },
 		{ name: 'Notes', to: 'notes', current: false },
@@ -45,15 +41,6 @@ export default function DashHeader() {
 
 	if (isError) return <Error error={error.data?.message} />
 
-	// let dashClass = null
-	// if (
-	// 	!DASH_REGEX.test(pathname) &&
-	// 	!NOTES_REGEX.test(pathname) &&
-	// 	!USERS_REGEX.test(pathname)
-	// ) {
-	// 	dashClass = 'dash-header__container--small'
-	// }
-	// console.log(dashClass)
 	return (
 		<Disclosure as='nav' className='bg-black'>
 			{({ open }) => (
