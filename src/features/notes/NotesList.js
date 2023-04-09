@@ -1,11 +1,11 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { useGetNotesQuery } from './notesApiSlice'
 import Note from './Note'
-import { Link } from 'react-router-dom'
 import Button from '../../components/Button'
-
 // Statuses: idle, loading, failed, succeeded
 import { Loading, Error } from '../../components/Status'
+import useAuth from '../../hooks/useAuth'
 
 const NotesList = () => {
 	const {
@@ -21,18 +21,28 @@ const NotesList = () => {
 		refetchOnReconnect: true,
 	})
 
+	const { username, isManager, isAdmin } = useAuth()
+
 	let content
 
 	if (isLoading) content = <Loading />
 	if (isError) content = <Error error={error?.data?.message} />
 
 	if (isSuccess) {
-		const { ids } = notes
-		const noteContent = ids?.length ? (
-			ids.map((noteId) => <Note key={noteId} noteId={noteId} />)
-		) : (
-			<p>No notes found</p>
-		)
+		const { ids, entities } = notes
+
+		let filteredIds
+		if (isManager || isAdmin) {
+			filteredIds = [...ids]
+		} else {
+			filteredIds = ids.filter(
+				(noteId) => entities[noteId].username === username
+			)
+		}
+
+		const noteContent =
+			ids?.length &&
+			filteredIds.map((noteId) => <Note key={noteId} noteId={noteId} />)
 
 		content = (
 			<div className='justify-center flex items-center flex-col mt-10'>

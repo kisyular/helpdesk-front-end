@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useUpdateNoteMutation, useDeleteNoteMutation } from './notesApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { Error } from '../../components/Status'
+import useAuth from '../../hooks/useAuth'
 
 const EditNoteForm = ({ note, users }) => {
 	const [updateNote, { isLoading, isSuccess, isError, error }] =
@@ -13,6 +14,7 @@ const EditNoteForm = ({ note, users }) => {
 	] = useDeleteNoteMutation()
 
 	const navigate = useNavigate()
+	const { isAdmin, isManager } = useAuth()
 
 	const [title, setTitle] = useState(note.title)
 	const [text, setText] = useState(note.text)
@@ -159,14 +161,16 @@ const EditNoteForm = ({ note, users }) => {
 							Save Note
 						</button>
 
-						<button
-							className='bg-red-500  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-60 disabled:cursor-not-allowed'
-							type='submit'
-							disabled={!canSave}
-							onClick={onDeleteNoteClicked}
-						>
-							Delete Note
-						</button>
+						{(isAdmin || isManager) && (
+							<button
+								className='bg-red-500  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-60 disabled:cursor-not-allowed'
+								type='submit'
+								disabled={!canSave}
+								onClick={onDeleteNoteClicked}
+							>
+								Delete Note
+							</button>
+						)}
 					</div>
 				</div>
 			</form>

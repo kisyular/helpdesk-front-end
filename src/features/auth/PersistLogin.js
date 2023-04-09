@@ -1,9 +1,10 @@
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useRefreshMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from './authSlice'
+import { Error } from '../../components/Status'
 
 const PersistLogin = () => {
 	const [persist] = usePersist()
@@ -54,12 +55,7 @@ const PersistLogin = () => {
 	} else if (isError) {
 		//persist: yes, token: no
 		console.log('error')
-		content = (
-			<p className='errmsg'>
-				{error.data?.message}
-				<Link to='/login'>Please login again</Link>.
-			</p>
-		)
+		content = <Error error={error.data?.message} />
 	} else if (isSuccess && trueSuccess) {
 		//persist: yes, token: yes
 		console.log('success')

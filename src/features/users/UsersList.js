@@ -27,11 +27,9 @@ const UsersList = () => {
 
 	if (isSuccess) {
 		const { ids } = users
-		const userContent = ids?.length ? (
+		const userContent =
+			ids?.length &&
 			ids.map((userId) => <User key={userId} userId={userId} />)
-		) : (
-			<p>No users found</p>
-		)
 
 		content = (
 			<div className='justify-center flex items-center flex-col mt-10'>
