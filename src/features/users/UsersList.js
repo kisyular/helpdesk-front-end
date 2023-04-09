@@ -38,7 +38,7 @@ const UsersList = () => {
 				<Link to='/dash/users/new'>
 					<Button text='Add New User' />
 				</Link>
-				<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-6xl py-4 sm:py-8 lg:py-12 justify-items-stretch px-2'>
+				<div className='grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-6xl py-4 sm:py-8 lg:py-12 justify-items-stretch px-2'>
 					{userContent}
 				</div>
 			</div>

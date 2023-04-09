@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
+import usePersist from '../../hooks/usePersist'
 
 const Login = () => {
 	const [username, setUsername] = useState('')
@@ -15,6 +16,7 @@ const Login = () => {
 	const userRef = useRef()
 	const errRef = useRef()
 	const [errMsg, setErrMsg] = useState('')
+	const [persist, setPersist] = usePersist()
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -28,6 +30,10 @@ const Login = () => {
 	useEffect(() => {
 		setErrMsg('')
 	}, [username, password])
+
+	const handlePersist = () => {
+		setPersist((prev) => !prev)
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -133,7 +139,7 @@ const Login = () => {
 								/>
 							</div>
 							<div className='flex items-center justify-between'>
-								{/* <div className='flex items-start'>
+								<div className='flex items-start'>
 									<div className='flex items-center h-5'>
 										<input
 											id='checked'
@@ -141,10 +147,8 @@ const Login = () => {
 											type='checkbox'
 											className='w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800'
 											required=''
-											checked={checked}
-											onChange={(e) =>
-												setChecked(!checked)
-											}
+											checked={persist}
+											onChange={handlePersist}
 										/>
 									</div>
 									<div className='ml-3 text-sm'>
@@ -152,13 +156,13 @@ const Login = () => {
 											htmlFor='checked'
 											className='text-white dark:text-white'
 										>
-											Remember me
+											Trust this device
 										</label>
 									</div>
-								</div> */}
+								</div>
 								<a
 									href='wewe'
-									className='text-sm font-medium text-primary-600 hover:underline dark:text-white'
+									className='text-sm font-medium text-blue-600 hover:underline dark:text-blue-200'
 								>
 									Forgot password?
 								</a>

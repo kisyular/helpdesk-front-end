@@ -5,13 +5,17 @@ import Logo from '../images/favicon.png'
 import { Loading, Error } from './Status'
 
 import { useEffect } from 'react'
-import { useNavigate, Link, useLocation } from 'react-router-dom'
+import {
+	useNavigate,
+	Link,
+	// useLocation
+} from 'react-router-dom'
 
 import { useSendLogoutMutation } from '../features/auth/authApiSlice'
 
-const DASH_REGEX = /^\/dash(\/)?$/
-const NOTES_REGEX = /^\/dash\/notes(\/)?$/
-const USERS_REGEX = /^\/dash\/users(\/)?$/
+// const DASH_REGEX = /^\/dash(\/)?$/
+// const NOTES_REGEX = /^\/dash\/notes(\/)?$/
+// const USERS_REGEX = /^\/dash\/users(\/)?$/
 const navigation = [
 	{ name: 'Dashboard', to: '/dash', current: true },
 	{ name: 'Users', to: 'users', current: false },
@@ -26,7 +30,7 @@ function classNames(...classes) {
 
 export default function DashHeader() {
 	const navigate = useNavigate()
-	const { pathname } = useLocation()
+	// const { pathname } = useLocation()
 
 	const [sendLogout, { isLoading, isSuccess, isError, error }] =
 		useSendLogoutMutation()
@@ -39,15 +43,15 @@ export default function DashHeader() {
 
 	if (isError) return <Error error={error.data?.message} />
 
-	let dashClass = null
-	if (
-		!DASH_REGEX.test(pathname) &&
-		!NOTES_REGEX.test(pathname) &&
-		!USERS_REGEX.test(pathname)
-	) {
-		dashClass = 'dash-header__container--small'
-	}
-	console.log(dashClass)
+	// let dashClass = null
+	// if (
+	// 	!DASH_REGEX.test(pathname) &&
+	// 	!NOTES_REGEX.test(pathname) &&
+	// 	!USERS_REGEX.test(pathname)
+	// ) {
+	// 	dashClass = 'dash-header__container--small'
+	// }
+	// console.log(dashClass)
 	return (
 		<Disclosure as='nav' className='bg-black'>
 			{({ open }) => (

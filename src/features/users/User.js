@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectUserById } from './usersApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 const User = ({ userId }) => {
 	const navigate = useNavigate()
@@ -14,21 +15,31 @@ const User = ({ userId }) => {
 		navigate(`/dash/users/${userId}`)
 	}
 
+	const borderColor = user.active
+		? 'dark:border-neutral-600'
+		: 'dark:border-black'
+
 	const userRolesString = user.roles.toString().replace(/,/g, ', ')
 	const userActiveString = user.active ? 'Active' : 'Inactive'
 
 	return (
 		<div
 			className={`block rounded-lg bg-white text-center shadow-lg  ${
-				user.active ? 'dark:bg-neutral-800' : 'bg-gray-500'
+				user.active ? 'dark:bg-gray-800' : 'dark:bg-neutral-600'
 			}`}
 		>
-			<div className='border-b-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 text-xl font-bold'>
+			<div
+				className={`border-b-2  px-6 py-3 dark:border-neutral-600 
+				dark:text-neutral-50 
+				text-xl font-bold
+				${borderColor}
+			`}
+			>
 				{userRolesString}
 			</div>
 			<div className='flex flex-row items-center pt-2 px-2'>
 				<img
-					className='w-20 h-20 mb-3 rounded-full bg-black border-4 border-white dark:border-white'
+					className='w-16 h-16 mb-3 rounded-full bg-black border-4 border-white dark:border-white'
 					src={`https://robohash.org/${user.username}.png`}
 					alt={user.name}
 				/>
@@ -42,10 +53,15 @@ const User = ({ userId }) => {
 					>
 						@{user.username}
 					</Link>
+					<p className='text-xs'>
+						joined on {moment(user.createdAt).format('LLLL')}
+					</p>
 				</div>
 			</div>
 
-			<div className='border-t-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 flex justify-between'>
+			<div
+				className={`border-t-2 px-6 py-3 dark:text-neutral-50 flex justify-between ${borderColor}`}
+			>
 				<p
 					className={`text-md text-center font-bold rounded-lg ${
 						user.active ? 'text-green-500' : 'text-red-400'

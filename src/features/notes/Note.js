@@ -14,11 +14,12 @@ const Note = ({ noteId }) => {
 	const handleEditNote = () => {
 		navigate(`/dash/notes/${noteId}`)
 	}
+	const noteStatus = note.completed ? 'COMPLETED' : 'OPEN'
 
 	return (
-		<div className='bg-white dark:bg-neutral-700 shadow-lg rounded-lg'>
-			<div className='flex flex-col items-start px-4 py-2'>
-				<div className='mt-4 flex items-center justify-between w-full'>
+		<div className='bg-white dark:bg-neutral-700 shadow-lg rounded-lg flex'>
+			<div className='flex flex-col justify-between items-start py-2 w-full'>
+				<div className='mt-4 flex items-center justify-between w-full border-b-2 border-gray-500 pb-4 px-2'>
 					<div className='flex'>
 						<img
 							className='w-12 h-12 rounded-full object-cover mr-2 shadow bg-gray-400 border-2 border-gray-950'
@@ -33,41 +34,18 @@ const Note = ({ noteId }) => {
 							>
 								@{note.username}
 							</Link>
-							<p className='text-white text-xs'>
-								on{' '}
-								{momemt(note.createdAt).format('MMMM Do YYYY')}
-							</p>
 						</div>
 					</div>
-					{note.completed ? (
+					<div className='flex flex-col justify-between'>
 						<p
-							className={`inline-flex text-md items-center px-3 py-1 text-center text-white font-bold rounded-lg bg-green-500`}
+							className={`text-md text-center font-bold rounded-lg ${
+								note.completed
+									? 'text-green-500'
+									: 'text-red-400'
+							}`}
 						>
-							COMPLETED
+							{noteStatus}
 						</p>
-					) : (
-						<p
-							className={`inline-flex text-md items-center px-3 py-1 text-center text-white font-bold rounded-lg bg-red-300`}
-						>
-							OPEN
-						</p>
-					)}
-				</div>
-
-				<div className='mt-2 w-full'>
-					<h2 className='font-bold text-white text-xl'>
-						{note.title}
-					</h2>
-					<p className='mt-1 text-gray-300 text-sm'>{note.text}</p>
-					<div className='mt-4 flex items-center justify-between w-full'>
-						<div className='flex flex-col justify-between mt-1 mb-1'>
-							<small className='text-xs text-white'>
-								created {momemt(note.createdAt).fromNow()}
-							</small>
-							<small className='text-xs  text-purple-300'>
-								updated {momemt(note.updatedAt).fromNow()}
-							</small>
-						</div>
 						<Link
 							className='flex mr-2 text-blue-300 text-sm lg:mr-4'
 							to={`/dash/notes/${noteId}`}
@@ -88,6 +66,47 @@ const Note = ({ noteId }) => {
 							</svg>
 							<span className='text-blue-300'>View Note</span>
 						</Link>
+					</div>
+				</div>
+
+				<div className='mt-2 w-full px-2'>
+					<h2 className='font-bold text-white text-xl'>
+						{note.title}
+					</h2>
+					<p className='mt-1 text-gray-300 text-sm'>{note.text}</p>
+				</div>
+				<div className='mt-2 w-full px-2'>
+					<div className='mt-6 w-full'>
+						<table className='border-collapse border border-gray-500 w-full'>
+							<thead>
+								<tr>
+									<th className='border-2 border-gray-500 text-start'>
+										ACTION
+									</th>
+									<th className='border-2 border-gray-500 text-start'>
+										TIME
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td className='border-2 border-gray-500'>
+										Created
+									</td>
+									<td className='border-2 border-gray-500'>
+										{momemt(note.createdAt).format('LLLL')}
+									</td>
+								</tr>
+								<tr>
+									<td className='border-2 border-gray-500'>
+										Updated
+									</td>
+									<td className='border-2 border-gray-500'>
+										{momemt(note.updatedAt).format('LLLL')}
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
