@@ -8,8 +8,10 @@ import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
+import useTitle from '../../hooks/useTitle'
 
 const Login = () => {
+	useTitle('Help Desk Login')
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 

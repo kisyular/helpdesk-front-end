@@ -6,8 +6,10 @@ import Button from '../../components/Button'
 // Statuses: idle, loading, failed, succeeded
 import { Loading, SimpleErrorMessage } from '../../components/Status'
 import { Link } from 'react-router-dom'
+import useTitle from '../../hooks/useTitle'
 
 const UsersList = () => {
+	useTitle('Help Desk Users')
 	const {
 		data: users,
 		error,

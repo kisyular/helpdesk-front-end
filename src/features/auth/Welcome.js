@@ -1,7 +1,9 @@
 import useAuth from '../../hooks/useAuth'
 import CallToActions from './CallToActions'
+import useTitle from '../../hooks/useTitle'
 
 export default function Welcome() {
+	useTitle('Help Desk Dashboard')
 	const { name, isAdmin, isManager } = useAuth()
 	return (
 		<div className='bg-black text-white'>

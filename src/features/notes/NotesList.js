@@ -6,8 +6,10 @@ import Button from '../../components/Button'
 // Statuses: idle, loading, failed, succeeded
 import { Loading, SimpleErrorMessage } from '../../components/Status'
 import useAuth from '../../hooks/useAuth'
+import useTitle from '../../hooks/useTitle'
 
 const NotesList = () => {
+	useTitle('Help Desk Notes')
 	const {
 		data: notes,
 		error,
