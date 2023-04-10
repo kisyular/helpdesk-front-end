@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAddNewNoteMutation } from './notesApiSlice'
-import { Error } from '../../components/Status'
+import { SimpleErrorMessage } from '../../components/Status'
 
 const NewNoteForm = ({ users }) => {
 	const [addNewNote, { isLoading, isSuccess, isError, error }] =
@@ -43,13 +43,21 @@ const NewNoteForm = ({ users }) => {
 		)
 	})
 
+	let errorMessage
 	if (isError) {
-		return <Error error={error?.data?.message} />
+		errorMessage = (
+			<SimpleErrorMessage
+				errorMessage={error?.data?.message}
+				errorHead='Error while adding user'
+			/>
+		)
 	}
 
 	return (
 		<div className='flex items-center justify-center'>
 			<form className='w-full max-w-2xl' onSubmit={onSaveNoteClicked}>
+				<div className='mb-10 px-3'>{errorMessage}</div>
+
 				<div className='flex flex-wrap mb-6'>
 					<div className='w-full  px-3 mb-6 md:mb-0'>
 						<label

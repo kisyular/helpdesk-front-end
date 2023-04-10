@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useUpdateUserMutation, useDeleteUserMutation } from './usersApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { ROLES } from '../../config/roles'
-import { Error } from '../../components/Status'
+import { SimpleErrorMessage } from '../../components/Status'
 import UserFormName from './UserFormName'
 import UserFormPassword from './UserFormPassword'
 import FormSelect from '../../components/FormSelect'
@@ -102,10 +102,20 @@ const EditUserForm = ({ user }) => {
 		canSave = [roles?.length, validUsername].every(Boolean) && !isLoading
 	}
 	if (isDelError) {
-		return <Error error={delerror?.data?.message} />
+		return (
+			<SimpleErrorMessage
+				errorMessage={delerror?.data?.message}
+				errorHead='Error deleting the user'
+			/>
+		)
 	}
 	if (isError) {
-		return <Error error={error?.data?.message} />
+		return (
+			<SimpleErrorMessage
+				errorMessage={error?.data?.message}
+				errorHead='You have an error'
+			/>
+		)
 	}
 
 	return (

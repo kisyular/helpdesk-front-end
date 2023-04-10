@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUpdateNoteMutation, useDeleteNoteMutation } from './notesApiSlice'
 import { useNavigate } from 'react-router-dom'
-import { Error } from '../../components/Status'
+import { SimpleErrorMessage } from '../../components/Status'
 import useAuth from '../../hooks/useAuth'
 
 const EditNoteForm = ({ note, users }) => {
@@ -61,10 +61,20 @@ const EditNoteForm = ({ note, users }) => {
 	})
 
 	if (isDelError) {
-		return <Error error={delerror?.data?.message} />
+		return (
+			<SimpleErrorMessage
+				errorMessage={delerror?.data?.message}
+				errorHead='Error deleting the note'
+			/>
+		)
 	}
 	if (isError) {
-		return <Error error={error?.data?.message} />
+		return (
+			<SimpleErrorMessage
+				errorMessage={error?.data?.message}
+				errorHead='You have an error!'
+			/>
+		)
 	}
 
 	return (

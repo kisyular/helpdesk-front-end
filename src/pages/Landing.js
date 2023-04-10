@@ -7,7 +7,7 @@ import notes from '../config/notes'
 const Landing = () => {
 	return (
 		<section className='bg-black dark:bg-black sm:h-screen min-h-screen'>
-			<div className='gap-16 items-end  py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6 flex-col-reverse'>
+			<div className='gap-16 items-end  py-8 px-3 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6 flex-col-reverse'>
 				<div className='font-light text-gray-500 sm:text-lg dark:text-gray-400'>
 					<h1 className='mb-4 font-extrabold tracking-tight leading-none text-gray-900 text-8xl dark:text-white'>
 						<span className='text-[#f7b801]'>Notes</span> for the

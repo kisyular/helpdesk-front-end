@@ -63,7 +63,7 @@ const Login = () => {
 		<section className='bg-black dark:bg-black landing'>
 			{/* Back Button */}
 
-			<div className='flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0'>
+			<div className='flex flex-col items-center justify-center px-3 py-4 mx-auto md:h-screen lg:py-0'>
 				<a
 					href='boss'
 					className='flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white'

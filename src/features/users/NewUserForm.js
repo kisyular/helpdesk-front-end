@@ -3,7 +3,7 @@ import { useAddNewUserMutation } from './usersApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { ROLES } from '../../config/roles'
-import { Error } from '../../components/Status'
+import { SimpleErrorMessage } from '../../components/Status'
 import UserFormName from './UserFormName'
 import UserFormPassword from './UserFormPassword'
 import FormSelect from '../../components/FormSelect'
@@ -69,14 +69,21 @@ const NewUserForm = () => {
 			await addNewUser({ username, password, roles, name })
 		}
 	}
+	let errorMessage
 
 	if (isError) {
-		return <Error error={error?.data?.message} />
+		errorMessage = (
+			<SimpleErrorMessage
+				errorMessage={error?.data?.message}
+				errorHead='Error while adding user'
+			/>
+		)
 	}
 
 	return (
 		<div className='flex items-center justify-center'>
 			<form className='w-full max-w-2xl' onSubmit={onSaveUserClicked}>
+				<div className='mb-10 px-3'>{errorMessage}</div>
 				<UserFormName
 					name={name}
 					setName={setName}

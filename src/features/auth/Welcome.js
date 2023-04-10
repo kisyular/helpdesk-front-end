@@ -5,7 +5,7 @@ export default function Welcome() {
 	const { name, isAdmin, isManager } = useAuth()
 	return (
 		<div className='bg-black text-white'>
-			<div className='relative isolate px-6 pt-2 lg:px-8'>
+			<div className='relative isolate px-3 pt-2 lg:px-4'>
 				<div className='mx-auto max-w-2xl py-4 sm:py-8 lg:py-12'>
 					<div className='text-center'>
 						<h1 className='text-4xl font-bold tracking-tight text-[#ff006e] sm:text-6xl mb-12'>

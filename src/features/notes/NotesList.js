@@ -4,7 +4,7 @@ import { useGetNotesQuery } from './notesApiSlice'
 import Note from './Note'
 import Button from '../../components/Button'
 // Statuses: idle, loading, failed, succeeded
-import { Loading, Error } from '../../components/Status'
+import { Loading, SimpleErrorMessage } from '../../components/Status'
 import useAuth from '../../hooks/useAuth'
 
 const NotesList = () => {
@@ -26,7 +26,13 @@ const NotesList = () => {
 	let content
 
 	if (isLoading) content = <Loading />
-	if (isError) content = <Error error={error?.data?.message} />
+	if (isError)
+		content = (
+			<SimpleErrorMessage
+				errorMessage={error?.data?.message}
+				errorHead='Error Leading the notes'
+			/>
+		)
 
 	if (isSuccess) {
 		const { ids, entities } = notes
@@ -49,7 +55,7 @@ const NotesList = () => {
 				<Link to='/dash/notes/new'>
 					<Button text='Add New Note' />
 				</Link>
-				<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-6xl py-4 sm:py-8 lg:py-12 justify-items-stretch px-2'>
+				<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-6xl py-4 sm:py-8 lg:py-12 justify-items-stretch px-3'>
 					{noteContent}
 				</div>
 			</div>

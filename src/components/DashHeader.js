@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from '../images/favicon.png'
-import { Loading, Error } from './Status'
+import { Loading, SimpleErrorMessage } from './Status'
 
 import { useEffect } from 'react'
 import {
@@ -39,7 +39,13 @@ export default function DashHeader() {
 
 	if (isLoading) return <Loading />
 
-	if (isError) return <Error error={error.data?.message} />
+	if (isError)
+		return (
+			<SimpleErrorMessage
+				errorMessage={error.data?.message}
+				errorHeader='Error!'
+			/>
+		)
 
 	return (
 		<Disclosure as='nav' className='bg-black'>

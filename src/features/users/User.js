@@ -27,20 +27,20 @@ const User = ({ userId }) => {
 
 	return (
 		<div
-			className={`block rounded-lg bg-white text-center shadow-lg  ${
+			className={`block rounded-lg bg-white text-center shadow-lg w-full  ${
 				user.active ? 'dark:bg-gray-800' : 'dark:bg-neutral-600'
 			}`}
 		>
 			<div
-				className={`border-b-2  px-6 py-3 dark:border-neutral-600 
+				className={`border-b-2 py-3 dark:border-neutral-600 
 				dark:text-neutral-50 
-				text-xl font-bold
+				text-xl font-bold w-full
 				${borderColor}
 			`}
 			>
 				{userRolesString}
 			</div>
-			<div className='flex flex-row items-center pt-2 px-2'>
+			<div className='flex flex-row items-center pt-2 px-2 w-full'>
 				<img
 					className='w-16 h-16 mb-3 rounded-full bg-black border-4 border-white dark:border-white'
 					src={`https://robohash.org/${user.username}.png`}
