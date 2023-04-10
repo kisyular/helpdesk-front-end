@@ -3,7 +3,7 @@ import { setCredentials } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
 	// baseUrl: 'http://localhost:3500/api/v1', // for the development server
-	baseUrl: 'https://helpdesk-api.onrender.com', // Production server
+	baseUrl: 'https://khelpdesk.onrender.com', // Production server
 	credentials: 'include',
 	prepareHeaders: (headers, { getState }) => {
 		const token = getState().auth.token
